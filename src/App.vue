@@ -26,9 +26,6 @@ export default {
     hreaderAndTopFlag() {
       return this.$store.state.hreaderAndTopFlag;
     }
-  },
-  mounted() {
-    alert(123);
   }
 };
 </script>
