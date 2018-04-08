@@ -12,22 +12,25 @@
 </template>
 
 <script>
-  import MHeader from 'components/mHeader/mHeader'
-  import Tab from 'components/tab'
-  import Player from 'components/player/player'
-  export default {
-    name: 'app',
-    components: {
-      MHeader,
-      Tab,
-      Player
-    },
-    computed: {
-      hreaderAndTopFlag () {
-        return this.$store.state.hreaderAndTopFlag
-      }
+import MHeader from "components/mHeader/mHeader";
+import Tab from "components/tab";
+import Player from "components/player/player";
+export default {
+  name: "app",
+  components: {
+    MHeader,
+    Tab,
+    Player
+  },
+  computed: {
+    hreaderAndTopFlag() {
+      return this.$store.state.hreaderAndTopFlag;
     }
+  },
+  mounted() {
+    alert(123);
   }
+};
 </script>
 
 <style scoped lang="stylus">
