@@ -1,7 +1,7 @@
 <template>
   <div class="social">
     <div class="user-box">
-        <img src="../../common/image/user.png" alt="" class="user-icon">
+        <img src="../../common/image/user.png" alt="" class="user-icon" @click="selectFind('/user/user/userPreview')">
         <span>xiaokeai</span>
         <input type="text" v-model="mood" @focus="focusUpdateMood" @blur="blurUpdateMood"
         style="background:transparent; text-align:center">
@@ -62,9 +62,8 @@
         align-items: center
         justify-content: center
         flex-wrap: nowrap
-        width: 120%
+        width: 100%
         height: 120px
-        margin-left: -25px;
         background: url('../../common/image/bg-usericon.jpg') 50% 50% no-repeat;
         margn-bottom: 30px
         span 
@@ -79,6 +78,7 @@
         flex-wrap: nowrap
         width: 100%
         height: 40px;
+        margin-left: 25px
         img 
           padding: 0 10px 0 0;
           width: 25px
