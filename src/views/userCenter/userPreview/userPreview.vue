@@ -60,23 +60,12 @@
         <div class="article-item">
           <img src="../../../common/image/bg-usericon.jpg" alt="" class="user-icon">
           <div class="user-info"> 
-            <span><i class="icon-music"></i> 分享歌曲：时光下乡</span>
+            <span><i class="icon-music"></i> 分享歌曲：时光遐想</span>
             <p class="time">11:26</p>
           </div>
           <div class="artilce-content">
             <img src="../../../common/image/bg-usericon.jpg" alt="">
-            <p>zhe shi 小可爱发的话啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦</p>
-          </div>
-        </div>
-        <div class="article-item">
-          <img src="../../../common/image/bg-usericon.jpg" alt="" class="user-icon">
-          <div class="user-info"> 
-            <span><i class="icon-music"></i> 分享歌曲：时光下乡</span>
-            <p class="time">11:26</p>
-          </div>
-          <div class="artilce-content">
-            <img src="../../../common/image/bg-usericon.jpg" alt="">
-            <p>zhe shi 小可爱发的话啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦</p>
+            <p>这首歌阐述了对童年的怀念和对昔日生活的记忆</p>
           </div>
         </div>
       </ul>
@@ -91,8 +80,8 @@
     data() {
       return {
         switches: [
-          {name: '他喜欢的'},
-          {name: '他的动态'}
+          {name: '喜欢'},
+          {name: '动态'}
         ],
         currentIndex: 0
       }

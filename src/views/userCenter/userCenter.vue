@@ -22,9 +22,7 @@
           </div>
         </scroll>
         <scroll ref="socialList" class="list-scroll" v-if="currentIndex===2" >
-          <div class="list-inner">
             <social></social>
-          </div>
         </scroll>
       </div>
       <div class="no-result-wrapper" v-show="noResult">
