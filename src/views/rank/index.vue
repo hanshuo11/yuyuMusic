@@ -22,91 +22,106 @@
   </div>
 </template>
 <script>
-  import { ERR_OK } from 'api/config'
-  import { getTopList } from 'api/rank'
-  import Scroll from 'base/scroll'
-  import Loading from 'base/loading'
-  import { playListMixin } from 'common/js/mixin'
-  import { mapMutations } from 'vuex'
-  export default {
-    mixins: [playListMixin],
-    data() {
-      return {
-        topList: []
-      }
+import { ERR_OK } from "api/config";
+import { getTopList } from "api/rank";
+import Scroll from "base/scroll";
+import Loading from "base/loading";
+import { playListMixin } from "common/js/mixin";
+import { mapMutations } from "vuex";
+export default {
+  mixins: [playListMixin],
+  data() {
+    return {
+      topList: []
+    };
+  },
+  created() {
+    this._getTopList();
+  },
+  components: {
+    Scroll,
+    Loading
+  },
+  methods: {
+    handlePlayList(playlist) {
+      const bottom = playlist.length > 0 ? "60px" : "";
+      this.$refs.rank.style.bottom = bottom;
+      this.$refs.topList.refresh();
     },
-    created() {
-      this._getTopList()
+    _getTopList() {
+      getTopList().then(res => {
+        if (res.code === ERR_OK) {
+          this.topList = res.data.topList;
+        }
+      });
     },
-    components: {
-      Scroll,
-      Loading
+    jump(item) {
+      this.$router.push({
+        path: `/rank/${item.id}`
+      });
+      this.setTopList(item);
     },
-    methods: {
-      handlePlayList(playlist) {
-        const bottom = playlist.length > 0 ? '60px' : ''
-        this.$refs.rank.style.bottom = bottom
-        this.$refs.topList.refresh()
-      },
-      _getTopList() {
-        getTopList().then(res => {
-          if (res.code === ERR_OK) {
-            this.topList = res.data.topList
-          }
-        })
-      },
-      jump(item) {
-        this.$router.push({
-          path: `/rank/${item.id}`
-        })
-        this.setTopList(item)
-      },
-      ...mapMutations({
-        setTopList: 'SET_TOP_LIST'
-      })
-    }
+    ...mapMutations({
+      setTopList: "SET_TOP_LIST"
+    })
   }
+};
 </script>
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
-  @import "~common/stylus/mixin"
+@import '~common/stylus/variable';
+@import '~common/stylus/mixin';
 
-   .rank
-    position: fixed
-    width: 100%
-    top: 69px
-    bottom: 0
-    .toplist
-      height: 100%
-      overflow: hidden
-      .item
-        display: flex
-        margin: 0 20px
-        padding-top: 20px
-        height: 100px
-        &:last-child
-          padding-bottom: 20px
-        .icon
-          flex: 0 0 100px
-          width: 100px
-          height: 100px
-        .songlist
-          flex: 1
-          display: flex
-          flex-direction: column
-          justify-content: center
-          padding: 0 20px
-          height: 100px
-          overflow: hidden
-          background: $color-highlight-background
-          color: $color-text-d
-          font-size: $font-size-medium
-          .song
-            no-wrap()
-            line-height: 26px
-      .loading-container
-        position: absolute
-        width: 100%
-        top: 50%
-        transform: translateY(-50%)
+.rank {
+  position: fixed;
+  width: 100%;
+  top: 69px;
+  bottom: 0;
+
+  .toplist {
+    height: 100%;
+    overflow: hidden;
+
+    .item {
+      display: flex;
+      margin: 0 20px;
+      padding-top: 20px;
+      height: 100px;
+
+      &:last-child {
+        padding-bottom: 20px;
+      }
+
+      .icon {
+        flex: 0 0 100px;
+        width: 100px;
+        height: 100px;
+      }
+
+      .songlist {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 20px;
+        height: 100px;
+        overflow: hidden;
+        background: $color-highlight-background;
+        color: $color-text-d;
+        font-size: $font-size-medium;
+
+        .song {
+          no-wrap();
+          line-height: 26px;
+        }
+      }
+    }
+
+    .loading-container {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
 </style>
