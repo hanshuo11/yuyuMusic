@@ -6,15 +6,15 @@
         <div class="login-box">
           <div class="input">
             <i class="iconUser ic">&#xe62f;</i>
-            <input class="box" placeholder="用户名"/>
+            <input class="box" placeholder="用户名" v-model="username"/>
           </div>
           <div class="input">
             <i class="iconPassword ic">&#xe652;</i>
-            <input class="box" placeholder="密码"/>
+            <input class="box" placeholder="密码" v-model="password"/>
           </div>
           <div class="input">
             <i class="iconPassword ic">&#xe652;</i>
-            <input class="box" placeholder="再次确认密码"/>
+            <input class="box" placeholder="再次确认密码" v-model="repassword"/>
           </div>
           <mt-button type="default" class="loginButton" @click="register">注册</mt-button>
         </div>
@@ -25,9 +25,14 @@
 
 <script>
 import Back from "base/back/commBack";
+import { MessageBox } from 'mint-ui';
 export default {
   data() {
-    return {};
+    return {
+      username: '',
+      password: '',
+      repassword: ''
+    };
   },
   computed: {},
   components: {
@@ -38,9 +43,41 @@ export default {
       this.$router.back();
     },
     register() {
-      console.log(123);
-      this.$router.push("/user");
+      let that = this;
+       
+      if (this.password === this.repassword) {
+        postJSON("/user/userRegister", { username: that.username, password: that.password, repassword: that.repassword }).then(function(res) {
+          console.log(res);
+          if (res.resStatus === "already have") {
+            MessageBox.alert('该用户名已存在！').then(action => {
+            
+            })
+          }
+          if (res.text === "success") {
+            MessageBox.alert('注册成功！').then(action => {
+              // setCookie('userMassage')
+
+              that.$router.push("/login");
+            })
+          };
+          if (res.text === "fail") {
+            MessageBox.alert('注册失败').then(action => {
+              
+            })
+          };
+        });
+      } else {
+        MessageBox({
+          title: '提示',
+          message: '两次输入密码不一致',
+          showCancelButton: true
+        });
+      }
+     
     }
+  },
+  mounted() {
+
   }
 };
 </script>

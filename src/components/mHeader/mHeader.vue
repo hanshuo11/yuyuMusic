@@ -22,7 +22,12 @@ export default {
     userIcon() {
       if (!this.fullScreen) {
         this.$store.commit("setMinPlayerShow", false);
-        this.$router.push("/login");
+        let userinfo = JSON.parse(localStorage.getItem('user'));
+        if (userinfo) {
+          this.$router.push("/user")
+        } else {
+          this.$router.push("/login");
+        }
       }
     }
   }

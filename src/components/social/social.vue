@@ -2,32 +2,37 @@
   <div class="social">
     <div class="user-box">
         <img src="../../common/image/user.png" alt="" class="user-icon" @click="selectFind('/user/user/userPreview')">
-        <span>xiaokeai</span>
+        <span v-show="username!=''">{{username}}</span>
+         <span v-show="username==''">未登录</span>
         <input type="text" v-model="mood" @focus="focusUpdateMood" @blur="blurUpdateMood"
         style="background:transparent; text-align:center">
     </div>
     <div class="news list" @click="selectFind('user/news')">
-        <img src="../../common/image/envelope.png" alt="">
+        <i class="iconfont">&#xe665;</i>
         <span>我的消息</span>
     </div>
     <div class="firends list" @click="selectFind('/user/firends')">
-        <img src="../../common/image/firends.png" alt="">
+       <i class="iconfont">&#xe625;</i>
         <span>我的好友</span>
     </div>
     <div class="comment list" @click="selectFind('/user/comments')">
-        <img src="../../common/image/comments.png" alt="">
+        <i class="iconfont">&#xe656;</i>
         <span>我的评论</span>
     </div>
     <div class="skin list" @click="selectFind('/user/skin')">
-        <img src="../../common/image/paint.png" alt="">
+        <i class="iconfont">&#xe678;</i>
         <span>个性换肤</span>
     </div>
     <div class="setStopTime list" @click="selectFind('/user/firends')">
-        <img src="../../common/image/Time.png" alt="">
+        <i class="iconfont">&#xe64d;</i>
         <span>定时停止播放</span>
     </div>
     <div class="setStopTime list">
-        <img src="../../common/image/Time.png" alt="">
+        <i class="iconfont">&#xe64b;</i>
+        <span>设置</span>
+    </div>
+    <div class="loginout list" @click="loginOut">
+        <i class="iconfont" >&#xe60f;</i>
         <span>退出</span>
     </div>
     <router-view></router-view>
@@ -35,21 +40,51 @@
 </template>
 
 <script>
+  import { MessageBox } from 'mint-ui';
   export default {
     data() {
       return {
-        mood: 'hello 小可爱'
+        mood: '',
+        username: ''
+      }
+    },
+    watch: {
+       username(val) {
+         console.log('val',val);
+         this.username = val;
       }
     },
     methods: {
       focusUpdateMood() {
-        console.log(this.mood)
+        console.log(this.mood);
       },
       blurUpdateMood() {
       },
       selectFind(url) {
-        this.$router.push(url)
+        this.$router.push(url);
+      },
+      loginOut() {
+        let that = this;
+        MessageBox.confirm('确定执行此操作?').then(action => {
+          if (action == 'confirm') {
+              localStorage.removeItem('user');
+              postJSON("/user/loginOut", {}).then(function(res) {
+              if(res.text === 'loginOut') {
+                that.$router.push("/recommend");
+              }
+            })
+          }
+        }).catch(err => { 
+          if (err == 'cancel') {     //取消的回调
+          };
+        })
       }
+    },
+    activated() {
+      let userinfo = JSON.parse(localStorage.getItem('user'));
+      this.username = userinfo.username;
+      this.mood = userinfo.mood;
+      console.log('social', userinfo.username)
     }
   }
 </script>
@@ -79,10 +114,11 @@
         width: 100%
         height: 40px;
         margin-left: 25px
-        img 
-          padding: 0 10px 0 0;
+        i 
+          padding-right: 10px
           width: 25px
           height: 25px
+          font-size: 27px
           
 
 </style>

@@ -46,7 +46,7 @@ export default {
   mixins: [playListMixin],
   data() {
     return {
-      currentIndex: 0,
+      currentIndex: 2,
       switches: [
         {
           name: "喜欢"
@@ -91,7 +91,12 @@ export default {
       this.insertSong(new Song(song));
     },
     back() {
-      this.$router.back();
+      let userinfo = JSON.parse(localStorage.getItem('user'));
+      if (userinfo) {
+        this.$router.push("/recommend")
+      } else {
+        this.$router.back();
+      }
     },
     random() {
       let list = this.currentIndex === 0 ? this.favoriteList : this.playHistory;

@@ -2,7 +2,7 @@
   <div class="news">
     <back></back>
     <div class="title">
-      <span>消息-拉拉咕咕</span>
+      <span>消息-{{firend}}</span>
     </div>
     <div class="content" ref="content">
       <div v-for="(newsItem,index) in newsList" :key="index">
@@ -14,10 +14,6 @@
       <div class="go_bottom" ref="goBottom" href="#1"></div>
     </div>
     <div class="sendBox">
-      <label for="img_input">
-        <img src="../../common/image/Picture.png" alt="" ref="picture" @click="postPicture">
-      </label>
-      <input id="img_input" type="file" accept="image/*" ref="imgAdd" @change="imgInput()">
       <input type="text" class="sendBar" @keyup.enter="sendMsg" ref="sendBar" placeholder="想对他说点什么">
     </div>
   </div>
@@ -28,24 +24,19 @@
   export default {
     data() {
       return {
+        firend: '菠萝蜜',
         newsList: [
-          {source: 'firend',
-            content: 'xxxxxxxxxxxxxxxx'
-          },
           {source: 'self',
-            content: '拉布拉布'
+            content: '在吗'
           },
           {source: 'firend',
-            content: '丑的像只pig的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig图4从期货业5不要太v让发车是我a'
+            content: '嗯呢'
           },
           {source: 'self',
-            content: '丑的像只pig 哥哥丑的像只pig 哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig图4从期货业5不要太v让发车是我a'
+            content: '我发现了一首新歌推荐给你听'
           },
-          {source: 'self',
-            content: '丑的像只pig 哥哥丑的像只pig 哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig哥哥丑的像只pig图4从期货业5不要太v让发车是我a'
-          },
-          {source: 'self',
-            img: '../../common/image/Picture.png'
+          {source: 'firend',
+            content: '好呀'
           }
         ],
         selfList: {}
@@ -103,11 +94,14 @@
         text-align: center;
         line-height: 50px;
     .content
-      margin-top: 50px;
-      height: 570px;
       background #eee;
       overflow: auto;
       position: relative;
+      position: fixed;
+      left: 0;
+      top: 50px;
+      bottom: 50px;
+      right: 0;
       .go_bottom
         background: transparent;
         height: 60px;

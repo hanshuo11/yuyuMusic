@@ -8,7 +8,7 @@ import router from './router'
 import VueLazyLoad from 'vue-lazyload'
 import './common/stylus/index.styl'
 import store from './store'
-
+import util from './common/js/util'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css';
 Vue.use(Mint);
@@ -16,15 +16,15 @@ Vue.use(Mint);
 
 // Vue.use(axios)
 Vue.use(VueLazyLoad, {
-  loading: require('./common/image/logo@2x.png')
+    loading: require('./common/image/logo@2x.png')
 })
 Vue.config.productionTip = false
-// 移动端click300毫秒的延迟时间
+    // 移动端click300毫秒的延迟时间
 fastclick.attach(document.body)
-/* eslint-disable no-new */
+    /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
 })

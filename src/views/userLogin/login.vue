@@ -6,11 +6,11 @@
         <div class="login-box">
           <div class="input">
             <i class="iconUser ic">&#xe62f;</i>
-            <input class="box" placeholder="用户名"/>
+            <input class="box" placeholder="用户名" v-model="username"/>
           </div>
           <div class="input">
             <i class="iconPassword ic">&#xe652;</i>
-            <input class="box" placeholder="密码"/>
+            <input class="box" placeholder="密码" v-model="password"/>
           </div>
           <mt-button type="default" class="loginButton" @click="login">登录</mt-button>
           <mt-button type="default" class="loginButton" @click="register">注册</mt-button>
@@ -22,9 +22,13 @@
 
 <script>
 import Back from "base/back/commBack";
+import { MessageBox } from 'mint-ui';
 export default {
   data() {
-    return {};
+    return {
+      username: '',
+      password: ''
+    };
   },
   computed: {},
   components: {
@@ -35,7 +39,33 @@ export default {
       this.$router.back();
     },
     login() {
-      this.$router.push("/user");
+      console.log(123)
+      let that = this
+      if (this.username != '' && this.password != '') {
+        postJSON("/user/login", { username: that.username, password: that.password}).then(function(res) {
+          console.log(res.text)
+          let getRes = JSON.parse(res.text)
+          if (getRes.cookie) {
+            localStorage.setItem("user", JSON.stringify(getRes.cookie));
+            console.log(localStorage.getItem("user"))
+          }
+          if (getRes.resStatus === 'success') {
+            MessageBox({
+              title: '提示',
+              message: '登录成功',
+              showCancelButton: false
+            }).alert;
+            that.$router.push("/user");
+          } else {
+            MessageBox({
+              title: '提示',
+              message: '登录失败',
+              showCancelButton: false
+            });
+          }
+        });
+      }
+     
     },
     register() {
       this.$router.push("/register");

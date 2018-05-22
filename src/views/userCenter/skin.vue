@@ -3,17 +3,9 @@
     <back></back>
     <h3>推荐</h3>
     <div class="skin-box">
-      <div class="skin-color">
-        <div class="color red" @click="chooseColor($event)"></div>
+      <div class="skin-color" v-for="(val, index) in colorList">
+        <div class="color" :class="colorClass" @click="chooseColor($event)"></div>
         <span>红色</span>
-      </div>
-      <div class="skin-color">
-        <div class="color blue" @click="chooseColor($event)"></div>
-        <span>蓝色</span>
-      </div>
-      <div class="skin-color">
-        <div class="color green" @click="chooseColor($event)"></div>
-        <span>绿色</span>
       </div>
     </div>
   </div>  
@@ -23,6 +15,16 @@
   export default {
     data() {
       return {
+        colorList: [{
+          color: '红色',
+          colorClass: 'red'
+        },{
+          color: '蓝色',
+          colorClass: 'blue'
+        },{
+          color: '绿色',
+          colorClass: 'green'
+        }]
       }
     },
     components: {
